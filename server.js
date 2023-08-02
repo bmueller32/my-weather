@@ -10,6 +10,9 @@ require("./config/database");
 
 const app = express();
 
+
+const userRouter = require("./routes/api/users")
+
 // add in when the app is ready to be deployed
 // app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(logger("dev"));
