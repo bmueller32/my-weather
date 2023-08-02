@@ -98,7 +98,7 @@ export default function SignupPage({ handleSignupOrLogin }) {
             />
             <Form.Input
               name="passwordConf"
-              placeholder="passwordConf"
+              placeholder="confirm password"
               value={state.passwordConf}
               onChange={handleChange}
               required
