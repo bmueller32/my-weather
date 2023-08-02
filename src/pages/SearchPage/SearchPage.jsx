@@ -1,7 +1,14 @@
+import { useState } from "react";
 
 
 export default function SearchPage() {
-    return(
-    <h1>Search City Page</h1>
-    )
+  const [user, setUser] = useState(userService.getUser());
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [weather, setWeather] = useState({});
+  
+
+  return (
+  <h1>Search city form</h1>
+  )
 }
