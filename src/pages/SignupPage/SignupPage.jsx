@@ -41,6 +41,7 @@ export default function SignupPage({ handleSignupOrLogin }) {
   }
 
   async function handleSubmit(e) {
+    //stop form from making http request and reloading page
     e.preventDefault();
     //must send form data when sending file to server
     //key on req.file=photo

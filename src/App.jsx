@@ -7,7 +7,7 @@ import { useState } from "react";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
-import ProfilePage from "./pages/ProfilePage/ProfilePage";
+
 
 import userService from "./utils/userService";
 
@@ -50,7 +50,7 @@ function App() {
       <Route path="/" element={<SearchPage />} />
       <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
       <Route path="/signup" element={<SignupPage handleSignupOrLogin={handleSignUpOrLogin} />} />
-      <Route path="/:username" element={<ProfilePage user={user} handleLogout={handleLogout}/>}/>
+      {/* <Route path="/:username" element={<SearchPage user={user} handleLogout={handleLogout}/>}/> */}
     </Routes>
   );
 }
