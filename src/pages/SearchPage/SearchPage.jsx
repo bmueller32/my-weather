@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import SearchForm from "../../components/ErrorMessage/SearchForm/SearchForm";
 import userService from "../../utils/userService";
-import WeatherInfo from "../../components/ErrorMessage/WeatherInfo/WeatherInfo";
+import InfoCard from "../../components/InfoCard/InfoCard"
+import PageHeader from "../../components/Header/Header";
 
-export default function SearchPage() {
-  const [user, setUser] = useState(userService.getUser());
+import { Grid } from "semantic-ui-react";
+
+
+export default function SearchPage({user, handleLogout}) {
+  
 
   const [searchTerm, setSearchTerm] = useState("london");
   const [weather, setWeather] = useState({});
@@ -44,9 +48,19 @@ export default function SearchPage() {
   }, [searchTerm]); // run useEffect again after component loads
   console.log(weather);
   return (
-    <>
-      <SearchForm getWeatherSearch={getWeatherSearch} />
-     {weather.location? <WeatherInfo weather={weather}  /> : null }
-    </>
+    <Grid centered>
+        <PageHeader handleLogout={handleLogout} user={user} />
+       <Grid.Row>
+       <Grid.Column>
+       <SearchForm getWeatherSearch={getWeatherSearch} />
+{weather.location? <InfoCard weather={weather}  /> : null }
+       </Grid.Column>
+       </Grid.Row>
+       <Grid.Row>
+       <Grid.Column style={{ maxWidth: 450 }}>
+      {/* <PostGallery/> */}
+       </Grid.Column>
+       </Grid.Row>
+     </Grid>
   );
 }

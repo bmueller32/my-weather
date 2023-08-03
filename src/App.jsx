@@ -32,7 +32,7 @@ function App() {
       <Routes>
         <Route
           path="/login"
-          element={<SearchPage handleLogout={handleLogout} />}
+          element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}
         />
         <Route
           path="/signup"
@@ -47,7 +47,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<SearchPage />} />
+      <Route path="/" element={<SearchPage user={user} handleLogout={handleLogout} />} />
       <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
       <Route path="/signup" element={<SignupPage handleSignupOrLogin={handleSignUpOrLogin} />} />
       {/* <Route path="/:username" element={<SearchPage user={user} handleLogout={handleLogout}/>}/> */}
