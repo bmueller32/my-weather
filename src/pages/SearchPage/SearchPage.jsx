@@ -1,38 +1,68 @@
 import { useState, useEffect } from "react";
 import SearchForm from "../../components/ErrorMessage/SearchForm/SearchForm";
 import userService from "../../utils/userService";
-import InfoCard from "../../components/InfoCard/InfoCard"
+import InfoCard from "../../components/InfoCard/InfoCard";
 import PageHeader from "../../components/Header/Header";
-
+import * as cityApi from "../../utils/cityApi";
 import { Grid } from "semantic-ui-react";
 
-
-export default function SearchPage({user, handleLogout}) {
-  
-
+export default function SearchPage({ user, handleLogout }) {
   const [searchTerm, setSearchTerm] = useState("london");
   const [weather, setWeather] = useState({});
+  const [cities, setCities] = useState([]);
+  const [error, setError] = useState("");
+
+  // (C)RUD
+  // we will call this function in the handleSubmit of the AddPuppyForm, and pass to it
+  // the formData we created
+  // this way when we get a response from the server we can easily update the state, since its
+  // in this component
+  async function handleAddCity(data) {
+   console.log(data)
+    try {
+      const responseData = await cityApi.create(data);
+      console.log(responseData, " <- response from server in handleAddCity");
+      setCities([responseData.data, ...cards]); // emptying the previous cards in to the new
+      // and then adding the new one we just created to the front (response.data)
+    } catch (err) {
+      console.log(err, " err in handleAddCity SearchPage");
+      setError("Error Creating a City! Please try again");
+    }
+  }
+
+  // C(R)UD
+  async function getCities() {
+    try {
+      const responseFromTheServer = await cityApi.getAll(); // this is the fetch function from card utils
+      console.log(responseFromTheServer);
+      setCards(responseFromTheServer.cards);
+    } catch (err) {
+      console.log(err, " err in getCities");
+      setError("Error Fetching Cards, Check terminal");
+    }
+  }
 
   function getWeatherSearch(cityName) {
     setSearchTerm(cityName);
   }
 
   useEffect(() => {
+    getCities();
     const weatherUrl = `http://api.weatherapi.com/v1/current.json?key=c306f9e6b6654417930193923230208&q=${searchTerm}&aqi=no`;
     //use async and await for api call to give http request time
     const headers = {
-        'Content-Type': 'application/json', 
-      };
+      "Content-Type": "application/json",
+    };
     async function getWeatherInfo() {
       try {
-        
-        const apiResponse = await fetch(weatherUrl,{ 
-            method: "GET",
-            headers: headers
+        const apiResponse = await fetch(weatherUrl, {
+          method: "GET",
+          headers: headers,
         });
         console.log(apiResponse);
         //fetch makes HTTP Get request and repsonse is json = apiResponse, has to be parsed into js object to be used
         const data = await apiResponse.json();
+        
         //.json to parse json into js
         console.log(data);
         //console.log(data) to see api response
@@ -49,18 +79,19 @@ export default function SearchPage({user, handleLogout}) {
   console.log(weather);
   return (
     <Grid centered>
-        <PageHeader handleLogout={handleLogout} user={user} />
-       <Grid.Row>
-       <Grid.Column>
-       <SearchForm getWeatherSearch={getWeatherSearch} />
-{weather.location? <InfoCard weather={weather}  /> : null }
-       </Grid.Column>
-       </Grid.Row>
-       <Grid.Row>
-       <Grid.Column style={{ maxWidth: 450 }}>
-      {/* <PostGallery/> */}
-       </Grid.Column>
-       </Grid.Row>
-     </Grid>
+      <PageHeader handleLogout={handleLogout} user={user} />
+      <Grid.Row>
+        <Grid.Column>
+          <SearchForm getWeatherSearch={getWeatherSearch} handleAddCity={handleAddCity} />
+          {weather.location ? <InfoCard weather={weather} /> : null}
+        </Grid.Column>
+      </Grid.Row>
+      
+      <Grid.Row>
+        <Grid.Column style={{ maxWidth: 450 }}>
+          {/* <CardGallery/> */}
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
   );
 }

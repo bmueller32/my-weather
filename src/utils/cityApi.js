@@ -3,19 +3,20 @@
 
 
 // we need to use the tokenService to get the token out of localstorage
+import { json } from "react-router-dom";
 import tokenService from "./tokenService";
 
 
-const Base_Url = '/api/cards/';
+const BASE_URL = '/api/city/';
 
 
-// Making a request to create a CARD
+// Making a request to create a CITY
 // this function will occur when a user is logged in
 // so we have to send the token to the server!
 export function create(data){
 	return fetch(BASE_URL, {
 		method: 'POST',
-		body: data, // since we are sending over a file/photo, no need to jsonify, since we are sending a multipart/formdata request
+		body: JSON.stringify(data), 
 		headers: {
 			// convention for sending jwts
 			
@@ -26,7 +27,7 @@ export function create(data){
 		if(responseFromTheServer.ok) return responseFromTheServer.json() // so if everything went well in the response return 
 		//the parsed json to where we called the function
 
-		throw new Error('Something went wrong in create Card'); // this will go to the catch block when we call the function in the AddPostPuppyForm
+		throw new Error('Something went wrong in create City'); // this will go to the catch block when we call the function in the AddPostPuppyForm
 		// handleSubmit
 	})
 }
@@ -34,7 +35,7 @@ export function create(data){
 
 // call this function in a useEffect in the feedpage
 // this funciton is making a request to this route
-// on express server router.get('/', postsCtrl.index) /api/posts
+// on express server router.get('/', citiesCtrl.index) /api/cities
 export function getAll(){
 	return fetch(BASE_URL, {
 		method: 'GET',
@@ -42,13 +43,28 @@ export function getAll(){
 			// convention for sending jwts
 			
 			Authorization: "Bearer " + tokenService.getToken() // < this is how we get the token from localstorage and and it to our api request
-			// so the server knows who the request is coming from when the client is trying to make a POST
+			// so the server knows who the request is coming from when the client is trying to make a City
 		}	
 	}).then(responseFromTheServer => {
 		if(responseFromTheServer.ok) return responseFromTheServer.json() // so if everything went well in the response return 
 		//the parsed json to where we called the function
 
-		throw new Error('Something went wrong in getAll posts, check the terminal!'); // this will go to the catch block when we call the function in the AddPostPuppyForm
+		throw new Error('Something went wrong in getAll cities, check the terminal!'); // this will go to the catch block when we call the function in the AddPostPuppyForm
 		// handleSubmit
 	})
+}
+
+export function deleteCity(cityId){
+    return fetch(`${BASE_URL}cards/${cityId}`, {
+        method:'DELETE',
+        headers: {
+			// convention for sending jwts
+			
+			Authorization: "Bearer " + tokenService.getToken() // < this is how we get the token from localstorage and and it to our api request
+			// so the server knows who the request is coming from when the client is trying to make a City
+    }
+}).then(responseFromTheServer => {
+    if(responseFromTheServer.ok) return responseFromTheServer.json() // 
+    throw new Error('Something went wrong in delete City'); 
+})
 }

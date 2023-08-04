@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form, Button } from "semantic-ui-react";
 
-export default function SearchForm({ getWeatherSearch }) {
+export default function SearchForm({ getWeatherSearch,handleAddCity}) {
   const [cityFormState, setCityFormState] = useState("");
 
   function handleChange(e) {
@@ -10,8 +10,10 @@ export default function SearchForm({ getWeatherSearch }) {
   }
 
   function handleSubmit(e) {
+
     //prevent form from making http request
     e.preventDefault();
+    handleAddCity(cityFormState);
     getWeatherSearch(cityFormState);
     setCityFormState("");
   }
