@@ -13,7 +13,7 @@ export default function SearchForm({ getWeatherSearch,handleAddCity}) {
 
     //prevent form from making http request
     e.preventDefault();
-    handleAddCity(cityFormState);
+    // handleAddCity(cityFormState);
     getWeatherSearch(cityFormState);
     setCityFormState("");
   }

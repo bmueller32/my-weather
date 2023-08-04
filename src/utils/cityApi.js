@@ -55,7 +55,7 @@ export function getAll(){
 }
 
 export function deleteCity(cityId){
-    return fetch(`${BASE_URL}cards/${cityId}`, {
+    return fetch(`${BASE_URL}/${cityId}`, {
         method:'DELETE',
         headers: {
 			// convention for sending jwts

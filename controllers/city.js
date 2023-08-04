@@ -28,9 +28,11 @@ async function index(req, res) {
          // this populates the user when you find the posts
     // so you'll have access to the users information
     // when you fetch the posts
-    const cities = await City.find({}).populate("user").exec();
+    const cities = await City.find({})
     res.status(200).json({ cities });
-    } catch (err) {}
+    } catch (err) {
+        res.status(400).json({err})
+    }
 }
 
 
