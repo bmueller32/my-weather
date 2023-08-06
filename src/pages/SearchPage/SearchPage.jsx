@@ -9,27 +9,29 @@ import { Grid } from "semantic-ui-react";
 
 export default function SearchPage({ user, handleLogout }) {
   const [searchTerm, setSearchTerm] = useState(null);
-  const [weather, setWeather] = useState(null);
+ 
   const [cities, setCities] = useState([]);
   const [error, setError] = useState("");
 
   // (C)RUD
-  // we will call this function in the handleSubmit of the AddPuppyForm, and pass to it
+  // we will call this function in the handleSubmit of the AddCity, and pass to it
   // the formData we created
   // this way when we get a response from the server we can easily update the state, since its
   // in this component
   async function handleAddCity(data) {
-   console.log(data)
-    try {
-      const responseData = await cityApi.create(data);
-      console.log(responseData, " <- response from server in handleAddCity");
-      setCities([responseData.data, ...cities]); // emptying the previous cities in to the new
-      // and then adding the new one we just created to the front (response.data)
-    } catch (err) {
-      console.log(err, " err in handleAddCity SearchPage");
-      setError("Error Creating a City! Please try again");
-    }
-  }
+    console.log('data',data)
+     try {
+       const responseData = await cityApi.create(data);
+       console.log(responseData, " <- response from server in handleAddCity");
+       setCities([responseData.data, ...cities]); // emptying the previous cities in to the new
+       // and then adding the new one we just created to the front (response.data)
+     } catch (err) {
+       console.log(err, " err in handleAddCity SearchPage");
+       setError("Error Creating a City! Please try again");
+     }
+   }
+
+
 
   // C(R)UD
   async function getCities() {
@@ -97,7 +99,7 @@ export default function SearchPage({ user, handleLogout }) {
       
       <Grid.Row>
         <Grid.Column style={{ maxWidth: 450 }}>
-          {!searchTerm ?<CardGallery cities={cities} user={user}  /> : <InfoCard location={searchTerm}/>}
+          {!searchTerm ?<CardGallery handleAddCity={handleAddCity} cities={cities} user={user}  /> : <InfoCard handleAddCity={handleAddCity} location={searchTerm}/>}
         </Grid.Column>
       </Grid.Row>
     </Grid>

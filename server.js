@@ -9,14 +9,14 @@ require("./config/database");
 // Require controllers here
 
 const app = express();
-
+app.use(logger("dev"));
+app.use(express.json());
 
 const userRouter = require("./routes/api/users")
 const cityRouter = require('./routes/city')
 // add in when the app is ready to be deployed
 // app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
-app.use(logger("dev"));
-app.use(express.json());
+
 
 
 // Configure the auth middleware
@@ -24,8 +24,8 @@ app.use(express.json());
 // the user information to req.user
 app.use(require("./config/auth"));
 // api routes must be before the "catch all" route
-app.use("/api/users", require("./routes/api/users"));
-app.use("/api/city", require("./routes/city"))
+app.use("/api/users", userRouter)
+app.use("/api/city", cityRouter)
 // "catch all" route
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));

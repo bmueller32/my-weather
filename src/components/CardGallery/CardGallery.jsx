@@ -2,14 +2,14 @@ import { Card } from 'semantic-ui-react'
 import InfoCard from '../InfoCard/InfoCard'
 import { useEffect, useState } from 'react'
 
-export default function CardGallery({ cities, user}){
+export default function CardGallery({ cities, user, handleAddCity}){
 
     const InfoCards = cities.map((city, index) =>{
         
         console.log(city, "the city")
        
         
-    return <InfoCard user={user} key={index} location={city.location}  />
+    return <InfoCard handleAddCity={handleAddCity} user={user} key={index} location={city.location}  />
     })
     
 return(

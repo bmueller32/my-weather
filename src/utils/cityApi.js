@@ -3,7 +3,7 @@
 
 
 // we need to use the tokenService to get the token out of localstorage
-import { json } from "react-router-dom";
+
 import tokenService from "./tokenService";
 
 
@@ -14,20 +14,22 @@ const BASE_URL = '/api/city/';
 // this function will occur when a user is logged in
 // so we have to send the token to the server!
 export function create(data){
+	console.log(data)
 	return fetch(BASE_URL, {
 		method: 'POST',
-		body: JSON.stringify(data), 
+		body: JSON.stringify({location : data}), 
 		headers: {
 			// convention for sending jwts
-			
+			'Content-Type': 'application/json',
 			Authorization: "Bearer " + tokenService.getToken() // < this is how we get the token from localstorage and and it to our api request
 			// so the server knows who the request is coming from when the client is trying to make a POST
 		}
 	}).then(responseFromTheServer => {
+		console.log(responseFromTheServer)
 		if(responseFromTheServer.ok) return responseFromTheServer.json() // so if everything went well in the response return 
 		//the parsed json to where we called the function
 
-		throw new Error('Something went wrong in create City'); // this will go to the catch block when we call the function in the AddPostPuppyForm
+		throw new Error('Something went wrong in create City'); // this will go to the catch block when we call the function in the AddCityForm in
 		// handleSubmit
 	})
 }
