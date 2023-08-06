@@ -1,6 +1,6 @@
 import { Button, Card } from "semantic-ui-react";
 import { useState, useEffect } from "react";
-function InfoCard({ location, handleAddCity }) {
+function InfoCard({ location, handleAddCity, handleDeleteCity }) {
   const [weather, setWeather] = useState(null);
   console.log(weather, "is weather");
   //fetch a city
@@ -45,6 +45,7 @@ function InfoCard({ location, handleAddCity }) {
         <Card.Content> Humidity:{weather?.current.humidity}%</Card.Content>{" "}
         <Card.Content>Wind:{weather?.current.wind_mph}mph</Card.Content>
         <Button onClick={()=>handleAddCity(location)}>Add</Button>
+        <Button onClick={()=>handleDeleteCity(location)}>Remove</Button>
       </Card>
     </>
   );

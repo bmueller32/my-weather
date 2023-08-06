@@ -39,9 +39,11 @@ async function index(req, res) {
 
 async function deleteCity(req, res) {
   try {
+    console.log(req.user)
     const city = await City.findOne({
+        
       "city._id": req.params.id,
-      username: req.username,
+      user: req.user
     });
     city.remove(req.params.id); // req.params.id is the city id
     await city.save(); // after you mutate a document you must save
