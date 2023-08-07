@@ -15,16 +15,18 @@ export default function SearchPage({ user, handleLogout }) {
 
   // (C)RUD
   // we will call this function in the handleSubmit of the AddCity, and pass to it
-  // the formData we created
+  // the json we created
   // this way when we get a response from the server we can easily update the state, since its
   // in this component
   async function handleAddCity(data) {
     console.log("data", data);
     try {
+        setSearchTerm(null);
       const responseData = await cityApi.create(data);
       console.log(responseData, " <- response from server in handleAddCity");
-      getCities();
-      window.location.reload();
+      
+    setCities([responseData.data, ...cities])
+     console.log(cities, 'this is a consolelog')
     } catch (err) {
       console.log(err, " err in handleAddCity SearchPage");
       setError("Error Creating a City! Please try again");
@@ -60,7 +62,7 @@ export default function SearchPage({ user, handleLogout }) {
   useEffect(() => {
     getCities();
     console.log(cities, "these are the cities 2");
-  }, []);
+  }, [searchTerm]);
 
   return (
     <Grid centered>
