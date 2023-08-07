@@ -56,8 +56,8 @@ export function getAll(){
 	})
 }
 
-export function deleteCity(cityId){
-    return fetch(`${BASE_URL}/${cityId}`, {
+export function deleteCity(cityName){
+    return fetch(`${BASE_URL}${cityName}`, {
         method:'DELETE',
         headers: {
 			// convention for sending jwts

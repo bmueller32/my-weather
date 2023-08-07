@@ -30,7 +30,9 @@ async function index(req, res) {
     // this populates the user when you find the posts
     // so you'll have access to the users information
     // when you fetch the posts
-    const cities = await City.find({});
+    const cities = await City.find({
+        user: req.user,
+    });
     res.status(200).json({ cities });
   } catch (err) {
     res.status(400).json({ err });
@@ -38,17 +40,18 @@ async function index(req, res) {
 }
 
 async function deleteCity(req, res) {
-  try {
-    console.log(req.user)
-    const city = await City.findOne({
-        
-      "city._id": req.params.id,
-      user: req.user
-    });
-    city.remove(req.params.id); // req.params.id is the city id
-    await city.save(); // after you mutate a document you must save
-    res.json({ data: " city removed" });
-  } catch (err) {
-    res.status(400).json({ err });
+    try {
+      const city = await City.findOneAndDelete({
+        location: req.params.id,
+        user: req.user
+      });
+  
+      if (!city) {
+        return res.status(404).json({ error: "City not found or you don't have permission to delete it." });
+      }
+  
+      res.json({ data: "City removed" });
+    } catch (err) {
+      res.status(400).json({ err });
+    }
   }
-}

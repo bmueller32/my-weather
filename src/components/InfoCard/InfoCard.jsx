@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 function InfoCard({ location, handleAddCity, handleDeleteCity }) {
   const [weather, setWeather] = useState(null);
   console.log(weather, "is weather");
+  console.log(location, 'this is the location')
   //fetch a city
   const weatherUrl = `http://api.weatherapi.com/v1/current.json?key=c306f9e6b6654417930193923230208&q=${location}&aqi=no`;
   //use async and await for api call to give http request time
@@ -44,8 +45,8 @@ function InfoCard({ location, handleAddCity, handleDeleteCity }) {
         <Card.Content>Feels like:{weather?.current.feelslike_f}</Card.Content>{" "}
         <Card.Content> Humidity:{weather?.current.humidity}%</Card.Content>{" "}
         <Card.Content>Wind:{weather?.current.wind_mph}mph</Card.Content>
-        <Button onClick={()=>handleAddCity(location)}>Add</Button>
-        <Button onClick={()=>handleDeleteCity(location)}>Remove</Button>
+        <Button color="green" onClick={()=>handleAddCity(location)}>Add</Button>
+        <Button color="red" onClick={()=>handleDeleteCity(location)}>Remove</Button>
       </Card>
     </>
   );

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import userService from "../../utils/userService";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   Button,
