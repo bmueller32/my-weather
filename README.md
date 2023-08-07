@@ -12,6 +12,6 @@ My weather is an app where you can search for current weather conditions by city
 
 
 
-Technologies Used: React, Express, MongoDb, Amazon S3
+Technologies Used: ReactJS, Express, MongoDb, Amazon S3
 
 Icebox: Improve UI styling and layout, change Info Card buttons to conditional rendering 
