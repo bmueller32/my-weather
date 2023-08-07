@@ -35,6 +35,10 @@ function InfoCard({ location, handleAddCity, handleDeleteCity }) {
     <>
       <Card>
         <Card.Header>
+            <Card.Content>
+                <span>{weather?.current.condition.text}</span>
+                <img className="ui mini spaced image" src={weather?.current.condition.icon}/>
+            </Card.Content>
           <Card.Content>
             {weather?.location.name},{weather?.location.country}
           </Card.Content>
