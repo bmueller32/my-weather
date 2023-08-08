@@ -49,7 +49,7 @@ function App() {
     <Routes>
       <Route path="/" element={<SearchPage user={user} handleLogout={handleLogout} />} />
       <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
-      <Route path="/signup" element={<SignupPage handleSignupOrLogin={handleSignUpOrLogin} />} />
+      <Route path="/signup" element={<SignupPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
       {/* <Route path="/:username" element={<SearchPage user={user} handleLogout={handleLogout}/>}/> */}
     </Routes>
   );

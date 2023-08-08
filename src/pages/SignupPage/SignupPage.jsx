@@ -13,7 +13,7 @@ import {
   Segment,
 } from "semantic-ui-react";
 
-export default function SignupPage({ handleSignupOrLogin }) {
+export default function SignupPage({ handleSignUpOrLogin }) {
   const [state, setState] = useState({
     username: "",
     email: "",
@@ -59,8 +59,9 @@ export default function SignupPage({ handleSignupOrLogin }) {
       const signUp = await userService.signup(formData);
     console.log(signUp)
       //navigate to homepage(SearchPage)
-      handleSignupOrLogin();
+      handleSignUpOrLogin();
       navigate('/');
+
        //defined in app
     } catch (err) {
       console.log(err, "err in handleSubmit");
