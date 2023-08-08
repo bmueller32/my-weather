@@ -57,7 +57,7 @@ export default function SignupPage({ handleSignupOrLogin }) {
       //make fetch request to server
       //call signup fetch function in userService
       const signUp = await userService.signup(formData);
-      console.log(signUp);
+    console.log(signUp)
       //navigate to homepage(SearchPage)
       handleSignupOrLogin();
       navigate('/');

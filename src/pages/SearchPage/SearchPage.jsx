@@ -24,8 +24,8 @@ export default function SearchPage({ user, handleLogout }) {
         setSearchTerm(null);
       const responseData = await cityApi.create(data);
       console.log(responseData, " <- response from server in handleAddCity");
-      
-    setCities([responseData.data, ...cities])
+      getCities();
+    // setCities([responseData.data, ...cities])
      console.log(cities, 'this is a consolelog')
     } catch (err) {
       console.log(err, " err in handleAddCity SearchPage");
