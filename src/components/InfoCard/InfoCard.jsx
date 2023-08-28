@@ -5,7 +5,7 @@ function InfoCard({ location, handleAddCity, handleDeleteCity }) {
   console.log(weather, "is weather");
   console.log(location, 'this is the location')
   //fetch a city
-  const weatherUrl = `http://api.weatherapi.com/v1/current.json?key=c306f9e6b6654417930193923230208&q=${location}&aqi=no`;
+  const weatherUrl = `https://api.weatherapi.com/v1/current.json?key=c306f9e6b6654417930193923230208&q=${location}&aqi=no`;
   //use async and await for api call to give http request time
   const headers = {
     "Content-Type": "application/json",
