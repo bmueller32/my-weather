@@ -7,7 +7,6 @@ module.exports = {
 };
 
 async function create(req, res) {
-  
   console.log(req.body);
   try {
     // if (!req.body.data)
@@ -20,7 +19,7 @@ async function create(req, res) {
     // await city.populate("user"); //populating on a mongoose document! this gives us the user object
     res.status(201).json({ data: city });
   } catch (err) {
-    console.log('400')
+    console.log("400");
     res.status(400).json({ error: err });
   }
 }
@@ -31,7 +30,7 @@ async function index(req, res) {
     // so you'll have access to the users information
     // when you fetch the posts
     const cities = await City.find({
-        user: req.user,
+      user: req.user,
     });
     res.status(200).json({ cities });
   } catch (err) {
@@ -40,18 +39,22 @@ async function index(req, res) {
 }
 
 async function deleteCity(req, res) {
-    try {
-      const city = await City.findOneAndDelete({
-        location: req.params.id,
-        user: req.user
-      });
-  
-      if (!city) {
-        return res.status(404).json({ error: "City not found or you don't have permission to delete it." });
-      }
-  
-      res.json({ data: "City removed" });
-    } catch (err) {
-      res.status(400).json({ err });
+  try {
+    const city = await City.findOneAndDelete({
+      location: req.params.id,
+      user: req.user,
+    });
+
+    if (!city) {
+      return res
+        .status(404)
+        .json({
+          error: "City not found or you don't have permission to delete it.",
+        });
     }
+
+    res.json({ data: "City removed" });
+  } catch (err) {
+    res.status(400).json({ err });
   }
+}
