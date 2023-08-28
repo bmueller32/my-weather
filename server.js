@@ -9,6 +9,7 @@ require("./config/database");
 // Require controllers here
 
 const app = express();
+app.set('view engine', 'ejs');
 app.use(logger("dev"));
 app.use(express.json());
 
@@ -27,12 +28,17 @@ app.use(require("./config/auth"));
 app.use("/api/users", userRouter)
 app.use("/api/city", cityRouter)
 // "catch all" route
+const manifest = require('./dist/manifest.json');
+
+app.use(express.static(path.join(__dirname, "dist")));
+
+// "catch all" route
 app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.render(path.join(__dirname, 'dist', 'index.ejs'), {manifest});
 });
 
 
-const port = process.env.PORT || 3001;
+
 
 
 
