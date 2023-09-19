@@ -11,7 +11,7 @@ async function create(req, res) {
   try {
     // if (!req.body.data)
     // return res.status(400).json({ error: "no data" });
-    // Use our Model to create a document in the posts collection in Mongodb
+    // Use Model to create a document in the posts collection in Mongodb
     const city = await City.create({
       location: req.body.location,
       user: req.user,
